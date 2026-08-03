@@ -15,29 +15,29 @@
 ### Độ tương tự Cosine (Cosine Similarity) (Bài tập 1.1)
 
 **Độ tương tự cosine cao (High cosine similarity) nghĩa là gì?**
-> *Viết 1-2 câu:*
+> *Viết 1-2 câu:* 2 embedding có độ tương đồng cao, tức mang giá trị về mặt ngữ nghĩa gần nhau
 
 **Ví dụ có độ tương tự CAO:**
-- Câu A:
-- Câu B:
-- Tại sao tương đồng:
+- Câu A: Con mèo đang nằm
+- Câu B: Con chó nằm ngủ
+- Tại sao tương đồng: Vì 2 câu này mang cùng 1 ý nghĩa là mô tả chủ thể đang thực hiện hành động nằm
 
 **Ví dụ có độ tương tự THẤP:**
-- Câu A:
-- Câu B:
-- Tại sao khác:
+- Câu A: Tôi đang đi bộ
+- Câu B: Bạn đã đi học
+- Tại sao khác: 2 hành động được 2 chủ thể thực hiện khác nhau nhiều về mặt ngữ nghĩa
 
 **Tại sao độ tương tự cosine (cosine similarity) được ưu tiên hơn khoảng cách Euclid (Euclidean distance) cho text embeddings?**
-> *Viết 1-2 câu:*
+> *Viết 1-2 câu:* Do embedding không bị ảnh hưởng bởi scale và norm
 
 ### Bài toán tính toán Chunking (Bài tập 1.2)
 
 **Tài liệu 10,000 ký tự, chunk_size=500, overlap=50. Bao nhiêu chunks?**
-> *Trình bày phép tính:*
-> *Đáp án:*
+> *Trình bày phép tính:* 500 + (chunks-1)*450 = 10000 => chunks = 23
+> *Đáp án:* 23
 
 **Nếu độ chồng chéo (overlap) tăng lên 100, số lượng chunk thay đổi thế nào? Tại sao muốn độ chồng chéo nhiều hơn?**
-> *Viết 1-2 câu:*
+> *Viết 1-2 câu:* Số lượng chunks tăng lên. Chúng ta muốn độ chồng chéo tăng lên khi muốn tăng mối liên hệ giữa các chunks
 
 ---
 
@@ -49,22 +49,27 @@ Giải thích cách tiếp cận của bạn khi lập trình (implement) các p
 
 **`SentenceChunker.chunk`** — hướng tiếp cận:
 > *Viết 2-3 câu: dùng biểu thức chính quy (regex) gì để phát hiện câu? Xử lý trường hợp ngoại lệ (edge case) nào?*
+Ngoại lệ: một đoạn văn liền không có kết thúc câu, phải hạ dần các ký hiệu câu để xét
 
 **`RecursiveChunker.chunk` / `_split`** — hướng tiếp cận:
 > *Viết 2-3 câu: thuật toán hoạt động thế nào? Base case (trường hợp cơ sở) là gì?*
+Thuật toán lần lượt chia theo đoạn, theo câu, theo từ,... Trường hợp cơ sở là chia theo từng từ (bé nhất)
 
 ### Lớp EmbeddingStore
 
 **`add_documents` + `search`** — hướng tiếp cận:
 > *Viết 2-3 câu: lưu trữ thế nào? Tính độ tương tự ra sao?*
+Mỗi document được chuẩn hóa thành 1 record gồm id, content, embedding và metadata (có kèm doc_id để phục vụ xóa/lọc sau này), rồi append vào danh sách `self._store` trong bộ nhớ. Khi search, câu truy vấn được embed rồi tính dot product với embedding của từng record đã lưu (do MockEmbedder đã chuẩn hóa vector nên dot product tương đương cosine similarity), sau đó sắp xếp giảm dần theo điểm và lấy top_k.
 
 **`search_with_filter` + `delete_document`** — hướng tiếp cận:
 > *Viết 2-3 câu: lọc (filter) trước hay sau? Xóa bằng cách nào?*
+`search_with_filter` lọc trước: duyệt qua `self._store`, chỉ giữ lại các record có metadata khớp toàn bộ điều kiện trong `metadata_filter`, rồi mới chạy hàm tính similarity trên tập con đã lọc để tránh so sánh với các chunk chắc chắn không liên quan. `delete_document` xóa bằng cách xây lại danh sách `self._store` chỉ gồm các record có `metadata["doc_id"]` khác với `doc_id` cần xóa, và trả về True/False tùy kích thước danh sách có giảm hay không.
 
 ### Tác tử KnowledgeBaseAgent
 
 **`answer`** — hướng tiếp cận:
 > *Viết 2-3 câu: cấu trúc prompt? Cách đưa ngữ cảnh (inject context) vào thế nào?*
+`answer` gọi `store.search(question, top_k)` để lấy các chunk liên quan nhất, nối nội dung (`content`) của chúng lại bằng dấu xuống dòng kép để tạo thành phần "Context". Prompt được dựng theo cấu trúc cố định: Context ở trên, sau đó là Question và nhãn "Answer:", rồi truyền toàn bộ prompt này vào `llm_fn` để sinh câu trả lời dựa trên ngữ cảnh đã truy xuất.
 
 ---
 
@@ -76,9 +81,59 @@ Vượt qua bộ kiểm thử là điều kiện tính điểm phần này.
 
 ```
 # Dán kết quả (output) của: pytest tests/ -v
+======================================================= test session starts ========================================================
+platform win32 -- Python 3.14.0, pytest-9.1.1, pluggy-1.6.0 -- C:\Users\Admin\Desktop\VinUni\K4-Day07-Gehihi36\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\Admin\Desktop\VinUni\K4-Day07-Gehihi36
+collected 42 items                                                                                                                  
+
+tests/test_solution.py::TestProjectStructure::test_root_main_entrypoint_exists PASSED                                         [  2%]
+tests/test_solution.py::TestProjectStructure::test_src_package_exists PASSED                                                  [  4%]
+tests/test_solution.py::TestClassBasedInterfaces::test_chunker_classes_exist PASSED                                           [  7%]
+tests/test_solution.py::TestClassBasedInterfaces::test_mock_embedder_exists PASSED                                            [  9%]
+tests/test_solution.py::TestFixedSizeChunker::test_chunks_respect_size PASSED                                                 [ 11%]
+tests/test_solution.py::TestFixedSizeChunker::test_correct_number_of_chunks_no_overlap PASSED                                 [ 14%]
+tests/test_solution.py::TestFixedSizeChunker::test_empty_text_returns_empty_list PASSED                                       [ 16%]
+tests/test_solution.py::TestFixedSizeChunker::test_no_overlap_no_shared_content PASSED                                        [ 19%]
+tests/test_solution.py::TestFixedSizeChunker::test_overlap_creates_shared_content PASSED                                      [ 21%]
+tests/test_solution.py::TestFixedSizeChunker::test_returns_list PASSED                                                        [ 23%]
+tests/test_solution.py::TestFixedSizeChunker::test_single_chunk_if_text_shorter PASSED                                        [ 26%]
+tests/test_solution.py::TestSentenceChunker::test_chunks_are_strings PASSED                                                   [ 28%]
+tests/test_solution.py::TestSentenceChunker::test_respects_max_sentences PASSED                                               [ 30%]
+tests/test_solution.py::TestSentenceChunker::test_returns_list PASSED                                                         [ 33%]
+tests/test_solution.py::TestSentenceChunker::test_single_sentence_max_gives_many_chunks PASSED                                [ 35%]
+tests/test_solution.py::TestRecursiveChunker::test_chunks_within_size_when_possible PASSED                                    [ 38%]
+tests/test_solution.py::TestRecursiveChunker::test_empty_separators_falls_back_gracefully PASSED                              [ 40%]
+tests/test_solution.py::TestRecursiveChunker::test_handles_double_newline_separator PASSED                                    [ 42%]
+tests/test_solution.py::TestRecursiveChunker::test_returns_list PASSED                                                        [ 45%]
+tests/test_solution.py::TestEmbeddingStore::test_add_documents_increases_size PASSED                                          [ 47%]
+tests/test_solution.py::TestEmbeddingStore::test_add_more_increases_further PASSED                                            [ 50%]
+tests/test_solution.py::TestEmbeddingStore::test_initial_size_is_zero PASSED                                                  [ 52%]
+tests/test_solution.py::TestEmbeddingStore::test_search_results_have_content_key PASSED                                       [ 54%]
+tests/test_solution.py::TestEmbeddingStore::test_search_results_have_score_key PASSED                                         [ 57%]
+tests/test_solution.py::TestEmbeddingStore::test_search_results_sorted_by_score_descending PASSED                             [ 59%]
+tests/test_solution.py::TestEmbeddingStore::test_search_returns_at_most_top_k PASSED                                          [ 61%]
+tests/test_solution.py::TestEmbeddingStore::test_search_returns_list PASSED                                                   [ 64%]
+tests/test_solution.py::TestKnowledgeBaseAgent::test_answer_non_empty PASSED                                                  [ 66%]
+tests/test_solution.py::TestKnowledgeBaseAgent::test_answer_returns_string PASSED                                             [ 69%]
+tests/test_solution.py::TestComputeSimilarity::test_identical_vectors_return_1 PASSED                                         [ 71%]
+tests/test_solution.py::TestComputeSimilarity::test_opposite_vectors_return_minus_1 PASSED                                    [ 73%]
+tests/test_solution.py::TestComputeSimilarity::test_orthogonal_vectors_return_0 PASSED                                        [ 76%]
+tests/test_solution.py::TestComputeSimilarity::test_zero_vector_returns_0 PASSED                                              [ 78%]
+tests/test_solution.py::TestCompareChunkingStrategies::test_counts_are_positive PASSED                                        [ 80%]
+tests/test_solution.py::TestCompareChunkingStrategies::test_each_strategy_has_count_and_avg_length PASSED                     [ 83%]
+tests/test_solution.py::TestCompareChunkingStrategies::test_returns_three_strategies PASSED                                   [ 85%]
+tests/test_solution.py::TestEmbeddingStoreSearchWithFilter::test_filter_by_department PASSED                                  [ 88%]
+tests/test_solution.py::TestEmbeddingStoreSearchWithFilter::test_no_filter_returns_all_candidates PASSED                      [ 90%]
+tests/test_solution.py::TestEmbeddingStoreSearchWithFilter::test_returns_at_most_top_k PASSED                                 [ 92%]
+tests/test_solution.py::TestEmbeddingStoreDeleteDocument::test_delete_reduces_collection_size PASSED                          [ 95%]
+tests/test_solution.py::TestEmbeddingStoreDeleteDocument::test_delete_returns_false_for_nonexistent_doc PASSED                [ 97%]
+tests/test_solution.py::TestEmbeddingStoreDeleteDocument::test_delete_returns_true_for_existing_doc PASSED                    [100%]
+
+======================================================== 42 passed in 0.16s ========================================================
 ```
 
-**Số lượng bài test vượt qua (pass):** __ / 42
+**Số lượng bài test vượt qua (pass):** 42/ 42
 
 ---
 
