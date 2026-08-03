@@ -75,6 +75,12 @@ class EmbeddingStore:
             for index in range(len(ids))
         ]
 
+    def _make_chroma_where(self, metadata_filter: dict[str, Any] | None) -> dict[str, Any] | None:
+        if not metadata_filter:
+            return None
+        conditions = [{key: value} for key, value in metadata_filter.items()]
+        return conditions[0] if len(conditions) == 1 else {"$and": conditions}
+
     def _search_records(self, query: str, records: list[dict[str, Any]], top_k: int) -> list[dict[str, Any]]:
         query_vector = self._embedding_fn(query)
         scored = [
@@ -145,7 +151,7 @@ class EmbeddingStore:
             result = self._collection.query(
                 query_embeddings=[self._embedding_fn(query)],
                 n_results=top_k,
-                where=metadata_filter,
+                where=self._make_chroma_where(metadata_filter),
                 include=["documents", "metadatas", "distances"],
             )
             return self._make_chroma_result(result)

@@ -28,10 +28,11 @@ class KnowledgeBaseAgent:
             source = metadata.get("doc_id") or metadata.get("source_url") or metadata.get("source") or result.get("id")
             context_lines.append(f"[{index}] source={source}\n{result['content']}")
 
+        context = "\n\n".join(context_lines)
         prompt = (
             "Instruction: Chỉ dùng context bên dưới để trả lời. "
             "Nếu context không đủ, hãy nói rõ là không đủ thông tin.\n\n"
-            f"Context:\n{'\n\n'.join(context_lines)}\n\n"
+            f"Context:\n{context}\n\n"
             f"Question: {question}\n"
             "Answer:"
         )
