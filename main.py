@@ -28,13 +28,17 @@ def _select_embedder():
     provider = os.getenv(EMBEDDING_PROVIDER_ENV, "mock").strip().lower()
     if provider == "local":
         try:
-            return LocalEmbedder(model_name=os.getenv("LOCAL_EMBEDDING_MODEL", LOCAL_EMBEDDING_MODEL))
+            return LocalEmbedder(
+                model_name=os.getenv("LOCAL_EMBEDDING_MODEL", LOCAL_EMBEDDING_MODEL)
+            )
         except Exception:
             print("Local embedder không sẵn sàng; tạm dùng mock.")
             return _mock_embed
     if provider == "openai":
         try:
-            return OpenAIEmbedder(model_name=os.getenv("OPENAI_EMBEDDING_MODEL", OPENAI_EMBEDDING_MODEL))
+            return OpenAIEmbedder(
+                model_name=os.getenv("OPENAI_EMBEDDING_MODEL", OPENAI_EMBEDDING_MODEL)
+            )
         except Exception:
             print("OpenAI embedder không sẵn sàng; tạm dùng mock.")
             return _mock_embed
@@ -55,7 +59,9 @@ def run_manual_demo(question: str | None = None, data_dir: str | None = None) ->
     print(f"Thư mục dữ liệu: {data_dir}")
     if not Path(data_dir).exists():
         print(f"Không tìm thấy thư mục dữ liệu: {data_dir}")
-        print("Thu thập tài liệu vào thư mục này (xem docs/DATA_COLLECTION.md) rồi chạy lại:")
+        print(
+            "Thu thập tài liệu vào thư mục này (xem docs/DATA_COLLECTION.md) rồi chạy lại:"
+        )
         print("  python3 main.py")
         return 1
 
@@ -75,7 +81,9 @@ def run_manual_demo(question: str | None = None, data_dir: str | None = None) ->
     print("\n=== Tìm kiếm (EmbeddingStore.search) ===")
     print(f"Câu hỏi: {query}")
     for index, result in enumerate(store.search(query, top_k=3), start=1):
-        print(f"{index}. score={result['score']:.3f} source={result['metadata'].get('source')}")
+        print(
+            f"{index}. score={result['score']:.3f} source={result['metadata'].get('source')}"
+        )
         print(f"   {result['content'][:120].replace(chr(10), ' ')}...")
 
     print("\n=== KnowledgeBaseAgent ===")

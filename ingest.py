@@ -23,6 +23,7 @@ Front matter (dạng phẳng `key: value`), ví dụ:
 Chạy `python3 ingest.py` để tự kiểm tra bộ parser front matter (không cần store —
 chạy được cả trước khi bạn hoàn thành Giai đoạn 2).
 """
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -103,7 +104,7 @@ def chunk_document(doc: Document, chunker) -> list[Document]:
     chunk_docs: list[Document] = []
     for index, piece in enumerate(chunker.chunk(doc.content)):
         chunk_meta = dict(doc.metadata)
-        chunk_meta["doc_id"] = doc.id           # để delete_document()/lọc theo doc_id hoạt động
+        chunk_meta["doc_id"] = doc.id  # để delete_document()/lọc theo doc_id hoạt động
         chunk_meta["chunk_index"] = index
         chunk_docs.append(
             Document(id=f"{doc.id}::chunk_{index}", content=piece, metadata=chunk_meta)
