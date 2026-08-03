@@ -25,7 +25,8 @@ DEFAULT_DATA_DIR = "data/k4_ecommerce"
 def _select_embedder():
     """Chọn backend nhúng theo biến môi trường EMBEDDING_PROVIDER (mock | local | openai)."""
     load_dotenv(override=False)
-    provider = os.getenv(EMBEDDING_PROVIDER_ENV, "mock").strip().lower()
+    #provider = os.getenv(EMBEDDING_PROVIDER_ENV, "mock").strip().lower()
+    provider = "local"
     if provider == "local":
         try:
             return LocalEmbedder(model_name=os.getenv("LOCAL_EMBEDDING_MODEL", LOCAL_EMBEDDING_MODEL))
@@ -85,6 +86,8 @@ def run_manual_demo(question: str | None = None, data_dir: str | None = None) ->
 
 
 def main() -> int:
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
     question = " ".join(sys.argv[1:]).strip() or None
     data_dir = os.getenv("LAB_DATA_DIR", DEFAULT_DATA_DIR)
     return run_manual_demo(question=question, data_dir=data_dir)
