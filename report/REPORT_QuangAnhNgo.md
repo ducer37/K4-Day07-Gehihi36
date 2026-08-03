@@ -1,8 +1,8 @@
 # Báo Cáo Cá Nhân — Lab 7: Embedding & Vector Store
 
-**Họ tên:** [Tên sinh viên]
+**Họ tên:** Ngô Quang Anh
 **Nhóm:** [Tên nhóm]
-**Ngày:** [Ngày nộp]
+**Ngày:** 2026-08-03
 
 > **Nộp 1 bản / sinh viên.** Phần nhóm (lựa chọn tài liệu, thiết kế chiến lược, bộ câu hỏi đánh giá, demo) nộp chung 1 bản trong `REPORT_NHOM.md`. Chi tiết thang điểm: `docs/SCORING.md`.
 
@@ -141,14 +141,16 @@ tests/test_solution.py::TestEmbeddingStoreDeleteDocument::test_delete_returns_tr
 
 | Cặp | Câu A | Câu B | Dự đoán | Điểm thực tế | Đúng? |
 |------|-----------|-----------|---------|--------------|-------|
-| 1 | | | cao / thấp | | |
-| 2 | | | cao / thấp | | |
-| 3 | | | cao / thấp | | |
-| 4 | | | cao / thấp | | |
-| 5 | | | cao / thấp | | |
+| 1 | Người mua có thể gửi yêu cầu đổi trả hàng trong bao lâu? | Thời hạn để yêu cầu trả hàng/hoàn tiền là bao nhiêu ngày? | cao | 0.753 | Đúng |
+| 2 | Thời gian hoàn tiền qua ví ShopeePay là bao lâu? | Sản phẩm bị lỗi có được đổi trả không? | thấp | 0.271 | Đúng |
+| 3 | Người bán cần phản hồi khi hàng hoàn gặp vấn đề trong bao lâu? | Shop phải xử lý đơn hàng hoàn trong thời hạn nào? | cao | 0.650 | Đúng |
+| 4 | Lỗi M10 trên Shopee nghĩa là gì? | Hôm nay thời tiết ở Hà Nội thế nào? | thấp | 0.064 | Đúng |
+| 5 | Điều kiện đổi ý khi sản phẩm còn nguyên tem nhãn là gì? | Quy định về danh mục sản phẩm cấm đăng bán là gì? | thấp | 0.591 | Sai |
+
+*(Đo bằng `LocalEmbedder` — `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2` — và `compute_similarity()`, không dùng mock vì mock không phản ánh ngữ nghĩa thật.)*
 
 **Kết quả nào bất ngờ nhất? Điều này nói gì về cách embeddings biểu diễn ý nghĩa?**
-> *Viết 2-3 câu:*
+> Cặp 5 bất ngờ nhất: dự đoán THẤP vì hai câu hỏi về hai chủ đề khác nhau (đổi trả vs. danh mục cấm bán), nhưng điểm thực tế lại khá cao (0.591) — gần bằng cặp 3 vốn là hai câu paraphrase thật sự. Điều này cho thấy embedding không chỉ bắt ý định câu hỏi mà còn bị chi phối mạnh bởi từ vựng chung của domain (Shopee, sản phẩm, quy định, điều kiện), nên hai câu "cùng lĩnh vực nhưng khác ý" vẫn có thể bị đẩy gần nhau hơn mong đợi trong không gian vector.
 
 ---
 
@@ -156,18 +158,20 @@ tests/test_solution.py::TestEmbeddingStoreDeleteDocument::test_delete_returns_tr
 
 Chạy **5 câu hỏi đánh giá của nhóm** trên mã nguồn cá nhân của bạn trong gói `src`. **5 câu hỏi này phải trùng với các thành viên cùng nhóm** (xem `REPORT_NHOM.md`).
 
+Chiến lược dùng: `HeadingAwareChunker` (custom, `bench.py`) — tách theo heading Markdown, fallback `RecursiveChunker` cho section quá dài. Embedding: `LocalEmbedder` (`paraphrase-multilingual-MiniLM-L12-v2`), không dùng mock. Corpus: `data/shopee_selected/` (10 tài liệu thật, 392 chunk).
+
 | # | Câu hỏi (Query) | Top-1 Chunk truy xuất được (tóm tắt) | Điểm Score | Có liên quan không? (Relevant) | Câu trả lời của Agent (tóm tắt) |
 |---|-------|--------------------------------|-------|-----------|------------------------|
-| 1 | | | | | |
-| 2 | | | | | |
-| 3 | | | | | |
-| 4 | | | | | |
-| 5 | | | | | |
+| 1 | Thời hạn trả hàng/hoàn tiền: thực phẩm tươi sống vs. sản phẩm khác | `shopee-return-refund-policy` — "trong vòng 15 ngày... riêng thực phẩm tươi sống/đông lạnh: 24 giờ" | 0.770 | Có — đúng doc kỳ vọng, top-1 | Trả lời đúng: 24h cho thực phẩm tươi sống, 15 ngày cho sản phẩm còn lại |
+| 2 | Đổi ý khi còn nguyên tem nhãn: áp dụng ai, trừ ai (filter `customer_role=buyer`) | `shopee-general-return-refund-rules` chunk 7 — "Khác với mô tả..." (chunk 8 mới đúng mục "Đổi ý" xếp hạng 2) | 0.545 | Có — đúng doc, nhưng chunk đúng nhất (Đổi ý) chỉ xếp #2, không phải #1 | Trả lời dựa trên top-3 nên vẫn nhắc đúng điều kiện đổi ý ở nguồn #2 |
+| 3 | Hạn phản hồi khi hàng hoàn gặp vấn đề (filter `customer_role=seller`) | `shopee-seller-manage-return-refund` — bảng "Thời điểm phản hồi / Hạn phản hồi" | 0.687 | Có — đúng doc, đúng chunk, top-1 | Trả lời đúng: phản hồi từ ngày hệ thống cập nhật, hạn 2 ngày |
+| 4 | Thời gian nhận tiền hoàn: ShopeePay, Napas, thẻ tín dụng, SPayLater (filter `topic_group=returns_refunds`, `customer_role=buyer`) | `shopee-refund-time-status` — lưu ý ShopeePay 24h, SPayLater 24h | 0.711 | Một phần — đúng doc top-1..3, nhưng top-3 thiên về ShopeePay/SPayLater, thiếu rõ số liệu Napas/thẻ tín dụng | Trả lời đủ ShopeePay + SPayLater, thiếu chi tiết Napas & thẻ tín dụng so với gold |
+| 5 | Lỗi thanh toán M10 vượt hạn mức xử lý thế nào (filter `topic_group=payments`, `customer_role=buyer`) | `shopee-supported-payment-methods` — tổng quan phương thức thanh toán (SAI doc kỳ vọng) | 0.613 | Không — doc đúng (`shopee-order-payment-errors`, có dòng lỗi M10) không lọt top-3 dù thỏa metadata_filter | Trả lời sai/thiếu: agent không có thông tin về mã lỗi M10 trong context, không trả lời được gold answer |
 
-**Bao nhiêu câu hỏi trả về chunk có liên quan trong top-3?** __ / 5
+**Bao nhiêu câu hỏi trả về chunk có liên quan trong top-3?** 4 / 5
 
 **Điều hay nhất tôi học được từ thành viên khác / nhóm khác (qua demo):**
-> *Viết 2-3 câu:*
+> *Viết 2-3 câu sau khi demo với nhóm — mục này cần điền sau buổi thuyết trình, chưa thể viết thay vì chưa diễn ra.*
 
 ---
 
@@ -175,9 +179,9 @@ Chạy **5 câu hỏi đánh giá của nhóm** trên mã nguồn cá nhân củ
 
 | Tiêu chí | Điểm tự đánh giá |
 |----------|-------------------|
-| Khởi động (Warm-up) | / 5 |
-| Hướng tiếp cận của tôi (My Approach) | / 10 |
-| Hoàn thiện code (Core Implementation — tests) | / 30 |
-| Dự đoán độ tương tự (Similarity Predictions) | / 5 |
-| Kết quả truy xuất của tôi (Competition Results) | / 10 |
-| **Tổng phần cá nhân** | **/ 60** |
+| Khởi động (Warm-up) | 5 / 5 |
+| Hướng tiếp cận của tôi (My Approach) | 10 / 10 |
+| Hoàn thiện code (Core Implementation — tests) | 30 / 30 |
+| Dự đoán độ tương tự (Similarity Predictions) | 5 / 5 |
+| Kết quả truy xuất của tôi (Competition Results) | 8 / 10 |
+| **Tổng phần cá nhân** | **58 / 60** |
