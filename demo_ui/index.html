@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>K4 RAG Demo - Shopee Policy Retrieval</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="brand-mark">K4</span>
+          <div>
+            <strong>RAG Demo Room</strong>
+            <small>Shopee policy retrieval</small>
+          </div>
+        </div>
+        <nav>
+          <a href="#overview">Overview</a>
+          <a href="#strategy">Strategy</a>
+          <a href="#benchmark">Benchmark</a>
+          <a href="#compare">Compare</a>
+          <a href="#filter">A/B Filter</a>
+          <a href="#failure">Failure Case</a>
+          <a href="#live">Live Query</a>
+        </nav>
+        <button class="copy-run" type="button" data-copy-command>
+          <span>Copy command</span>
+          <code>python bench.py</code>
+        </button>
+      </aside>
+
+      <main>
+        <header class="topbar">
+          <div>
+            <span class="eyebrow">Checkpoint 6 ready</span>
+            <h1>Retrieval benchmark, nhìn tới đúng chunk.</h1>
+          </div>
+          <div class="run-chip">
+            <span class="dot"></span>
+            local embedding + Chroma
+          </div>
+        </header>
+
+        <section id="overview" class="section">
+          <div class="section-head">
+            <span>01 / Phạm vi</span>
+            <h2>Corpus Shopee đã làm sạch, có provenance.</h2>
+            <p>Demo này dùng cùng dữ liệu với benchmark thật: 10 tài liệu chính sách/hỗ trợ Shopee, metadata trải xuống từng chunk, lưu vector bằng Chroma.</p>
+          </div>
+
+          <div class="metrics">
+            <article>
+              <span>Documents</span>
+              <strong>10</strong>
+              <small>selected public pages</small>
+            </article>
+            <article>
+              <span>Chunks</span>
+              <strong>392</strong>
+              <small>HeadingAwareChunker(700)</small>
+            </article>
+            <article>
+              <span>Doc hit@3</span>
+              <strong>5/5</strong>
+              <small>expected doc appears</small>
+            </article>
+            <article class="warning">
+              <span>Chunk score</span>
+              <strong>6/10</strong>
+              <small>evidence-level grading</small>
+            </article>
+          </div>
+
+          <article class="panel pipeline-console">
+            <div class="panel-title split">
+              <div>
+                <span>Interactive pipeline</span>
+                <h3>Bấm để thấy workflow hoạt động.</h3>
+              </div>
+              <div class="pipeline-controls">
+                <select id="pipelineScenario" aria-label="Chọn query demo">
+                  <option value="Q1">Q1 - thời hạn trả hàng</option>
+                  <option value="Q2">Q2 - điều kiện đổi ý</option>
+                  <option value="Q3">Q3 - filter seller thành công</option>
+                  <option value="Q4">Q4 - failure đúng doc sai chunk</option>
+                  <option value="Q5">Q5 - filter troubleshooting</option>
+                </select>
+                <button type="button" id="runPipeline">Run pipeline</button>
+                <button type="button" id="runAllQueries">Run all 5</button>
+                <button type="button" id="nextPipeline">Next step</button>
+                <button type="button" id="resetPipeline">Reset</button>
+              </div>
+            </div>
+            <div class="pipeline-stage-grid" id="pipelineStages">
+              <div class="pipeline-stage" data-stage="0"><b>01</b><strong>Load corpus</strong><span>10 markdown docs + sources.csv</span></div>
+              <div class="pipeline-stage" data-stage="1"><b>02</b><strong>Chunk</strong><span>HeadingAwareChunker(700)</span></div>
+              <div class="pipeline-stage" data-stage="2"><b>03</b><strong>Embed</strong><span>multilingual MiniLM local</span></div>
+              <div class="pipeline-stage" data-stage="3"><b>04</b><strong>Store</strong><span>Chroma persistent collection</span></div>
+              <div class="pipeline-stage" data-stage="4"><b>05</b><strong>Retrieve</strong><span>metadata filter + top-k=3</span></div>
+              <div class="pipeline-stage" data-stage="5"><b>06</b><strong>Evaluate</strong><span>doc hit + evidence hit</span></div>
+            </div>
+            <div class="pipeline-output">
+              <div class="pipeline-log" id="pipelineLog">
+                <p><span>$</span> Ready. Choose a query and run the pipeline.</p>
+              </div>
+              <div class="pipeline-result" id="pipelineResult">
+                <span class="empty-state">No run yet</span>
+              </div>
+            </div>
+          </article>
+
+          <div class="grid two">
+            <article class="panel">
+              <div class="panel-title">
+                <span>Metadata schema</span>
+                <h3>Field nào dùng để lọc?</h3>
+              </div>
+              <div class="schema">
+                <div><code>doc_id</code><span>trace về file gốc</span><b>trace</b></div>
+                <div><code>source_url</code><span>nguồn công khai</span><b>trace</b></div>
+                <div><code>retrieved_at</code><span>ngày lấy dữ liệu</span><b>trace</b></div>
+                <div><code>customer_role</code><span>buyer / seller / both</span><b class="hot">filter</b></div>
+                <div><code>topic_group</code><span>returns_refunds / payments / terms</span><b class="hot">filter</b></div>
+                <div><code>category</code><span>refund-policy, payment-troubleshooting...</span><b class="hot">filter</b></div>
+                <div><code>policy_type</code><span>help_article, legal_policy, seller_guide</span><b class="hot">filter</b></div>
+                <div><code>chunk_index</code><span>vị trí chunk trong document</span><b>debug</b></div>
+              </div>
+            </article>
+
+            <article class="panel">
+              <div class="panel-title">
+                <span>Demo route</span>
+                <h3>6-8 phút, không lan man.</h3>
+              </div>
+              <ol class="timeline">
+                <li><b>1 phút</b><span>Phạm vi, nguồn, metadata schema.</span></li>
+                <li><b>2 phút</b><span>Giải thích HeadingAwareChunker.</span></li>
+                <li><b>3 phút</b><span>Benchmark, A/B filter, failure case Q4.</span></li>
+                <li><b>1-2 phút</b><span>Chạy live query hoặc trình bày output đã chuẩn bị.</span></li>
+              </ol>
+            </article>
+          </div>
+        </section>
+
+        <section id="strategy" class="section">
+          <div class="section-head">
+            <span>02 / Strategy riêng</span>
+            <h2>Heading-aware trước, recursive sau.</h2>
+            <p>Văn bản chính sách đã được biên soạn theo mục. Strategy giữ heading làm ngữ cảnh, section quá dài mới fallback sang RecursiveChunker.</p>
+          </div>
+
+          <div class="grid strategy-grid">
+            <article class="panel code-panel">
+              <div class="panel-title">
+                <span>Selected strategy</span>
+                <h3>HeadingAwareChunker(chunk_size=700)</h3>
+              </div>
+              <pre><code>sections = split_before_markdown_heading(text)
+for section in sections:
+    if len(section) <= 700:
+        keep(section)
+    else:
+        split_by_recursive(section)
+        prepend_heading_to_child_chunks()</code></pre>
+            </article>
+            <article class="panel">
+              <div class="panel-title">
+                <span>Why it fits</span>
+                <h3>Policy text cần giữ cấu trúc.</h3>
+              </div>
+              <ul class="plain-list">
+                <li>Heading như “Điều kiện”, “Lưu ý”, “Phí”, “Quy trình” là tín hiệu ngữ nghĩa mạnh.</li>
+                <li>Chunk con vẫn mang heading nên dễ debug provenance khi demo.</li>
+                <li>Đánh đổi: bảng dài có thể bị tách, cần table-aware chunking nếu muốn tối ưu CP6.</li>
+              </ul>
+            </article>
+          </div>
+
+          <article class="panel">
+            <div class="panel-title">
+              <span>Baseline body-only</span>
+              <h3>So sánh chunk count trước khi benchmark.</h3>
+            </div>
+            <div class="table baseline">
+              <div class="row head"><span>Document</span><span>Fixed</span><span>Sentence</span><span>Recursive</span></div>
+              <div class="row"><code>general-return-refund-rules</code><span>17 / 397.9</span><span>8 / 764.0</span><span>23 / 264.8</span></div>
+              <div class="row"><code>mall-return-refund-terms</code><span>94 / 398.2</span><span>56 / 600.0</span><span>139 / 241.0</span></div>
+              <div class="row"><code>order-payment-errors</code><span>10 / 395.5</span><span>7 / 512.6</span><span>14 / 255.7</span></div>
+            </div>
+          </article>
+        </section>
+
+        <section id="benchmark" class="section">
+          <div class="section-head">
+            <span>03 / Benchmark thật</span>
+            <h2>5 query cố định, chấm theo evidence.</h2>
+            <p>Doc hit@3 đạt 5/5, nhưng evidence hit@3 chỉ 4/5. Đây là insight chính: đúng tài liệu chưa chắc đúng chunk.</p>
+          </div>
+
+          <div class="bench-layout">
+            <div class="query-tabs" id="queryTabs"></div>
+            <article class="panel query-detail">
+              <div class="panel-title split">
+                <div>
+                  <span id="queryType">Q1</span>
+                  <h3 id="queryTitle">Query title</h3>
+                </div>
+                <b id="queryScore" class="score-pill">2/2</b>
+              </div>
+              <p id="queryText" class="query-text"></p>
+              <div id="queryFilter" class="filter-line"></div>
+              <div class="gold"><b>Gold answer</b><p id="queryGold"></p></div>
+              <div class="mini-metrics">
+                <span>Expected doc rank: <b id="docRank"></b></span>
+                <span>Evidence rank: <b id="evidenceRank"></b></span>
+              </div>
+              <div class="chunk-cards" id="chunkCards"></div>
+              <div class="table retrieval" id="retrievalRows"></div>
+            </article>
+          </div>
+        </section>
+
+        <section id="filter" class="section">
+          <div class="section-head">
+            <span>04 / A/B metadata filter</span>
+            <h2>Q3 chứng minh filter giảm nhiễu.</h2>
+            <p>Cùng một query seller: không filter vẫn có evidence nhưng rơi xuống rank 3; filter `customer_role=seller` đẩy evidence lên rank 1.</p>
+          </div>
+
+          <div class="grid two">
+            <article class="panel ab bad">
+              <div class="panel-title"><span>A / no filter</span><h3>Evidence rank 3</h3></div>
+              <div class="rank-list">
+                <div><b>1</b><code>shopee-return-refund-policy</code><span>related but not seller operation</span></div>
+                <div><b>2</b><code>shopee-general-return-refund-rules</code><span>buyer-oriented return policy</span></div>
+                <div><b>3</b><code>shopee-seller-manage-return-refund</code><span>correct seller evidence</span></div>
+              </div>
+            </article>
+            <article class="panel ab good">
+              <div class="panel-title"><span>B / customer_role=seller</span><h3>Evidence rank 1</h3></div>
+              <div class="rank-list">
+                <div><b>1</b><code>shopee-seller-manage-return-refund</code><span>correct table, within 2 days</span></div>
+                <div><b>2</b><code>shopee-seller-manage-return-refund</code><span>seller status context</span></div>
+                <div><b>3</b><code>shopee-seller-manage-return-refund</code><span>seller handling steps</span></div>
+              </div>
+            </article>
+          </div>
+
+          <div class="callout">
+            <b>Trade-off:</b>
+            <span>Filter tăng precision khi query gắn với vai trò rõ ràng, nhưng có thể giảm recall nếu metadata sai hoặc nếu đáp án nằm trong tài liệu `both`.</span>
+          </div>
+        </section>
+
+        <section id="compare" class="section">
+          <div class="section-head">
+            <span>04 / Strategy comparison</span>
+            <h2>So sánh chunking bằng cùng corpus, embedder và Chroma.</h2>
+            <p>Benchmark công bằng chỉ đổi chunker. Embedder local và vector store giữ nguyên; mock embedder chỉ dùng để test luồng kỹ thuật, không dùng kết luận chất lượng retrieval.</p>
+          </div>
+
+          <article class="panel">
+            <div class="panel-title split">
+              <div>
+                <span>Live sweep</span>
+                <h3>Heading vs Recursive vs Fixed vs Sentence.</h3>
+              </div>
+              <button class="run-real" type="button" id="runStrategySweep">Run strategy sweep</button>
+            </div>
+            <div class="table compare-table" id="strategyCompare">
+              <div class="row head"><span>Strategy</span><span>Chunks</span><span>Doc hit@3</span><span>Evidence hit@3</span><span>Chunk score</span></div>
+              <div class="row"><span>HeadingAware</span><span>392</span><span>5/5</span><span>4/5</span><span>6/10</span></div>
+              <div class="row muted-row"><span colspan="5">Bấm Run strategy sweep để chạy lại các strategy còn lại bằng local embedding + Chroma.</span></div>
+            </div>
+            <div class="callout">
+              <b>Embed choice:</b>
+              <span>So sánh chính nên giữ nguyên `paraphrase-multilingual-MiniLM-L12-v2` 384 chiều. Nếu đổi embedder, phải tạo collection/Chroma dir riêng vì dimension và không gian vector có thể khác.</span>
+            </div>
+          </article>
+        </section>
+
+        <section id="failure" class="section">
+          <div class="section-head">
+            <span>05 / Failure analysis</span>
+            <h2>Q4 là failure case tốt.</h2>
+            <p>Top-3 đều đúng document `shopee-refund-time-status`, nhưng không có chunk nào chứa đủ evidence của bảng hoàn tiền.</p>
+          </div>
+
+          <div class="grid two">
+            <article class="panel">
+              <div class="panel-title"><span>Observed top-3</span><h3>Đúng doc, sai section.</h3></div>
+              <div class="rank-list">
+                <div><b>1</b><code>chunk 7</code><span>Lưu ý về Ví ShopeePay, thiếu Napas và thẻ tín dụng.</span></div>
+                <div><b>2</b><code>chunk 8</code><span>Lưu ý SPayLater kết hợp phương thức khác.</span></div>
+                <div><b>3</b><code>chunk 0</code><span>Title, không chứa câu trả lời.</span></div>
+              </div>
+            </article>
+            <article class="panel">
+              <div class="panel-title"><span>Why it failed</span><h3>Cosine không đo “đủ bảng”.</h3></div>
+              <ul class="plain-list">
+                <li>Embedding kéo các chunk cùng chủ đề hoàn tiền lên cao.</li>
+                <li>Chunk bảng chính bị tách khỏi phần lưu ý, nên evidence đầy đủ không vào top-3.</li>
+                <li>Hướng sửa: table-aware chunking hoặc tăng top_k cho query liệt kê bảng.</li>
+              </ul>
+            </article>
+          </div>
+        </section>
+
+        <section id="live" class="section">
+          <div class="section-head">
+            <span>06 / Live query</span>
+            <h2>Chạy benchmark thật bằng local embed + Chroma.</h2>
+            <p>Chạy UI bằng `demo_ui/server.py` để nút live gọi trực tiếp `bench.py`; nếu chỉ mở bằng static server thì dùng lệnh terminal bên dưới.</p>
+          </div>
+
+          <div class="live-grid">
+            <article class="panel terminal">
+              <div class="terminal-head">
+                <span></span><span></span><span></span>
+                <code>PowerShell</code>
+              </div>
+              <pre><code>cd D:\codein\misp@ce\aiaction\K4-Day07-Gehihi36
+conda activate vmec-clinical-copilot
+
+$env:PYTHONIOENCODING='utf-8'
+$env:EMBEDDING_PROVIDER='local'
+$env:VECTOR_STORE='chroma'
+$env:CHROMA_DIR='.chroma\shopee_heading_700'
+$env:CHUNKER='heading'
+$env:CHUNK_SIZE='700'
+$env:HF_HUB_OFFLINE='1'
+$env:TRANSFORMERS_OFFLINE='1'
+
+python bench.py</code></pre>
+              <button class="copy-run inline" type="button" data-copy-command>Copy full command</button>
+            </article>
+
+            <article class="panel">
+              <div class="panel-title"><span>Live runner</span><h3>Bấm để chạy pipeline thật.</h3></div>
+              <button class="run-real" type="button" id="runRealBenchmark">Run real bench.py</button>
+              <pre class="live-output"><code id="realBenchmarkOutput">Ready. Start demo server with:
+python demo_ui\server.py</code></pre>
+              <div class="live-answer">
+                <b>Q3 answer</b>
+                <p>Shop phản hồi từ ngày hệ thống cập nhật trả hàng thành công; hạn phản hồi là trong vòng 2 ngày.</p>
+              </div>
+              <div class="run-summary">
+                <span>Doc hit@3 <b>5/5</b></span>
+                <span>Evidence hit@3 <b>4/5</b></span>
+                <span>Chunk score <b>6/10</b></span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <footer>
+          <span>K4 Day 07 - Nguyễn Tuấn Đức</span>
+          <span>Static demo UI, lab pipeline unchanged</span>
+        </footer>
+      </main>
+    </div>
+    <div id="toast" class="toast">Copied</div>
+    <script src="app.js"></script>
+  </body>
+</html>
