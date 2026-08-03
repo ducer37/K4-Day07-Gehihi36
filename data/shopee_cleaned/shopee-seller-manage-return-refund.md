@@ -11,10 +11,6 @@ language: "vi"
 
 # Quản lý đơn trả hàng hoàn tiền
 
-Quản lý đơn trả hàng hoàn tiền | Shopee Trung tâm trợ giúp
-
-# Xin chào, Shopee có thể giúp gì cho bạn?
-
 ## Quản lý đơn trả hàng hoàn tiền
 
 Quản lý đơn Trả hàng/Hoàn tiền tại Kênh Quản Lý Shop có những tính năng vượt trội như sau:
@@ -31,7 +27,7 @@ Tổng quan quy trình xử lý đơn trả hàng:
 
 ## 1.Theo dõi trạng thái và xử lý đơn Trả hàng/ hoàn tiền trên Kênh Quản Lý Shop
 
-Trạng thái hàng hoàn gồm: 
+Trạng thái hàng hoàn gồm:
 
 - Đã nhận hàng:Là trạng thái ĐVVC đã hoàn hàng thành công cho Người Bán
 
@@ -39,21 +35,20 @@ Trạng thái hàng hoàn gồm:
 
 Cách xử lý đơn hàng hoàn trả theo từng trạng thái:
 Để kiểm tra trạng thái đơn trả hàng, tại Kênh Quản lý Shop - Chọn
-Trả hàng/Hoàn tiền 
-- Đến trang 
+Trả hàng/Hoàn tiền
+- Đến trang
 Trả hàng thành công
 💡 Mẹo:
 
-Nhấn 
-Xem chi tiết
-tại phần thông báo đầu trang để xem trạng thái hàng hoàn nhanh chóng
+Nhấn
+Xem chi tiết tại phần thông báo đầu trang để xem trạng thái hàng hoàn nhanh chóng
 
 # B. Hướng dẫn xử lý đơn hàng hoàn sau khi ĐVVC trả hàng thành công cho Người Bán
 
 Tại mục
 Trả hàng thành công
-- chọn 
-Xác nhận Nhận hàng. 
+- chọn
+Xác nhận Nhận hàng.
 
 - Chọn 3a: ChọnNhập lại hàng vào kho nếu hàng nguyên vẹn
 
@@ -62,25 +57,22 @@ Xác nhận Nhận hàng.
 Trường hợp 1
 :
 Nếu chọn 3a - Nhập lại hàng vào kho
-Kiểm tra số lượng hàng có thể nhập lại vào kho và nhập 
+Kiểm tra số lượng hàng có thể nhập lại vào kho và nhập
 Số lượng nhập hàng thực tế
-Nhấn chọn 
-Nhập tồn kho nhanh 
-để hoàn tất quá trình nhập hàng
+Nhấn chọn
+Nhập tồn kho nhanh để hoàn tất quá trình nhập hàng
 Trường hợp 2:
 Nếu chọn 3b - Thêm chi phí
 Nhập số tiền ứng với giá vốn hàng hoàn, nhấn
 Thêm chi phí
 ⚠️
-Lưu ý: 
+Lưu ý:
 Thêm chi phí tại bước này nhằm đảm bảo sự chính xác của tính năng Kế toán, Người bán sẽ không thực sự mất chi phí nào vì khi hàng hoàn bị thất lạc hoặc hư hỏng, Người Bán sẽ nhận được khoản đền bù từ Shopee.
-Nhấn 
-Chi tiết giao dịch 
-để đến trang 
+Nhấn
+Chi tiết giao dịch để đến trang
 Thêm giao dịch
 - Chọn đơn hàng cần xử lý - Nhấn
-Hoàn tất 
-để hoàn thành quá trình thêm chi phí
+Hoàn tất để hoàn thành quá trình thêm chi phí
 
 ## C. Hướng dẫn Phản hồi đến Shopee khi chưa nhận được hàng hoàn hoặc hàng hoàn gặp vấn đề
 
@@ -89,25 +81,23 @@ Hoàn tất
 | 1. Hệ thống ghi nhận đã trả hàng thành công nhưng Shop chưa nhận được hàng hoặc hàng hoàn về gặp vấn đề (vỡ/ hư hại/thiếu hàng/ không phải hàng của Shop...) | Từ ngày hệ thống cập nhậttrả hàng thành công | Trong vòng2 ngày |
 | 2. Hệ thống ghi nhận Người Mua đã gửi hàng cho ĐVVC nhưng Shopchưa nhận được hàng | Sau 2 ngàykể từ ngày hệ thống cập nhật Người mua đã gửi hàng cho ĐVVC | |
 
-👉Hướng dẫn chi tiết Khiếu nại Shopee tại Kênh Người Bán 
+👉Hướng dẫn chi tiết Khiếu nại Shopee tại Kênh Người Bán
 TẠI ĐÂY.
 
 ## 2. Theo dõi và phản hồi yêu cầu Trả hàng/Hoàn tiền trên Kênh Quản Lý Shop
 
 Trường hợp không đồng ý với quyết định Hoàn tiền ngay hoặc Trả hàng của Shopee, Người Bán cần Phản hồi đến Shopee để đảm bảo quyền lợi.
-Bước 1: 
+Bước 1:
 Truy cập
 
-kenhquanly.shopee.vn
-, Chọn
+kenhquanly.shopee.vn, Chọn
 Trả hàng/Hoàn tiền
-Bước 2: 
-Tại mục 
-Cần phản hồi
-, tìm đơn hàng và chọn 
-Phản hồi đến Shopee 
+Bước 2:
+Tại mục
+Cần phản hồi, tìm đơn hàng và chọn
+Phản hồi đến Shopee
 Bấm
-Xác nhận, 
+Xác nhận,
 Kênh Quản Lý Shop
 
 sẽ điều hướng bạn qua Kênh Người Bán để phản hồi
@@ -125,9 +115,4 @@ Sau khi đơn Trả hàng/Hoàn tiền hoàn tất và Người Bán đã xác n
 - Đền bù từ Shopee(nếu có)
 
 Tại mục
-Nhật ký giao dịch,
-nhập ID đơn hàng để xem các giao dịch được ghi nhận cho đơn hàng đó
-
-Bạn có hài lòng với bài viết này?
-Hài lòng
-Không hài lòng
+Nhật ký giao dịch, nhập ID đơn hàng để xem các giao dịch được ghi nhận cho đơn hàng đó

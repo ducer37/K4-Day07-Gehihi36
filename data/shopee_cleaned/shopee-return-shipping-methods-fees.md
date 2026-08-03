@@ -11,16 +11,12 @@ language: "vi"
 
 # Các phương thức gửi hàng hoàn trả và phí hoàn trả
 
-[Trả hàng/ Hoàn tiền] Các phương thức gửi hàng hoàn trả và phí hoàn trả | Shopee Trung tâm trợ giúp
-
-# Xin chào, Shopee có thể giúp gì cho bạn?
-
 ## [Trả hàng/ Hoàn tiền] Các phương thức gửi hàng hoàn trả và phí hoàn trả
 
 1. Hướng dẫn trả hàng sau khi yêu cầu Trả hàng/Hoàn tiền của bạn được chấp nhận
 1.1 Hình thức trả hàng và các bước trả hàng tương ứng:
 
-## 
+##
 
 | Hình thức | Các bước trả hàng |
 | --- | --- |
@@ -28,15 +24,12 @@ language: "vi"
 | Trả hàng tại bưu cục(Miễn phí trả hàng) | Bước 1:Chọn một trong số đơn vị vận chuyển hệ thống đề xuấtBước 2:Đóng gói hàng trong hộp vận chuyểnBước 3:Dán phiếu gửi hàng hoặc viết tay trực tiếp mã vận đơn được Shopee cung cấp lênhộp vận chuyểnBước 4:Đem gói hàng tới gửi trả tại bưu cục đã chọn. |
 | Tự sắp xếp(Bạn cần thanh toán trước phí trả hàng, Shopee sẽ hỗ trợ hoàn lại phí trả hàng này. Chi tiết tại mục2. Chính sách hỗ trợ phí trả hàngbên dưới) | Bước 1:Đóng gói hàngBước 2:Mang hàng đến bưu cục bất kỳ để gửi trả theo địa chỉ Shopee cung cấpBước 34:Đăng tải bằng chứng trả hàng tạiChi tiết Trả hàng/hoàn tiềncủa đơn hàng đang hoàn trả |
 
-## 
+##
 
-Xem chi tiết 
-Cách đóng gói đơn hàng hoàn trả 
-và cách 
-Tra cứu mã vận đơn trả hàng 
-tại đây
-.
-1.2. Lưu ý khi chọn Hình thức Đơn vị vận chuyển đến lấy hàng: 
+Xem chi tiết
+Cách đóng gói đơn hàng hoàn trả và cách
+Tra cứu mã vận đơn trả hàng tại đây.
+1.2. Lưu ý khi chọn Hình thức Đơn vị vận chuyển đến lấy hàng:
 
 - Đơn vị vận chuyển sẽ chỉ hỗ trợ tối đa 3 lần lấy hàng khác nhau trong vòng 1-3 ngày kể từ ngày lấy hàng bạn đã chọn. Do đó, bạn vui lòng sắp xếp thời gian gửi hàng phù hợp để không ảnh hưởng đến quyền lợi trả hàng. của mình
 
@@ -50,9 +43,7 @@ tại đây
 
 ## 1.3. Hướng dẫn Người mua trả hàng tại bưu cục:
 
-Sau khi bạn đã thực hiện gửi yêu cầu hoàn tiền và chọn hình thức trả hàng là 
-gửi trả tại bưu cục
-trên ứng dụng Shopee. Bạn vui lòng tiến hành các bước tiếp theo như sau:
+Sau khi bạn đã thực hiện gửi yêu cầu hoàn tiền và chọn hình thức trả hàng là gửi trả tại bưu cục trên ứng dụng Shopee. Bạn vui lòng tiến hành các bước tiếp theo như sau:
 
 - Bước 1:Kiểm tra địa chỉ bưu cụcSPX/Giao Hàng Nhanh(đơn vị vận chuyển bạn đã chọn) gần bạn nhất để đi gửi trả hàng
 
@@ -60,9 +51,9 @@ trên ứng dụng Shopee. Bạn vui lòng tiến hành các bước tiê�
 
 - Bước 3:Đưa mã vận đơn cho nhân viên bưu cục xem để được miễn phí trả hàng (Kiểm tra mã vận đơn bằng cách vào mụcTôi>Trả hàng/Hoàn tiền> Tại đơn hàng hoàn trả, chọnTrả hàng tại bưu cục> xem mục Mã vận đơn).
 
-1.4. Lưu ý khi chọn hình thức Tự sắp xếp: 
-Bạn phải lưu lại hóa đơn trả hàng với đầy đủ thông tin: Mã vận đơn, số điện thoại và đúng địa chỉ người nhận, không thu hộ (COD) 
-2. Chính sách hỗ trợ phí trả hàng: 
+1.4. Lưu ý khi chọn hình thức Tự sắp xếp:
+Bạn phải lưu lại hóa đơn trả hàng với đầy đủ thông tin: Mã vận đơn, số điện thoại và đúng địa chỉ người nhận, không thu hộ (COD)
+2. Chính sách hỗ trợ phí trả hàng:
 
 ## 2.1. Phí vận chuyển ban đầu khi yêu cầu Trả hàng/Hoàn tiền:
 
@@ -98,7 +89,7 @@ Bạn phải lưu lại hóa đơn trả hàng với đầy đủ thông tin: M�
 
 - Đơn hàng không sử dụng phương thức Người bán tự vận chuyển khi giao đến bạn trước đó
 
-⚠️Lưu ý: 
+⚠️Lưu ý:
 
 - Phí trả hàng vẫn có thể được hỗ trợ nếu bạn chọn trả hàng qua các đơn vị vận chuyển hỏa tốc như Grab Express, Ahamove, Be... Tuy nhiên, nếu Người bán có khiếu nại về hàng hoàn trả và Shopee không thể kiểm tra được hành trình đơn hàng hoàn trả của bạn, phí trả hàng sẽ KHÔNG được hoàn lại cho trường hợp này
 
@@ -106,16 +97,10 @@ Bạn phải lưu lại hóa đơn trả hàng với đầy đủ thông tin: M�
 
 - Ví dụ:Shopee Xu nhận được vào ngày 15/04/2023 sẽ hết hạn vào ngày 31/05/2023.
 
-Cách 
-kiểm tra thông tin Shopee Xu:
+Cách kiểm tra thông tin Shopee Xu:
 vào mục
-Tôi 
+Tôi
 > chọn
-Shopee Xu
-tại mục Tiện ích của tôi trên ứng dụng Shopee
+Shopee Xu tại mục Tiện ích của tôi trên ứng dụng Shopee
 
-## 
-
-Bạn có hài lòng với bài viết này?
-Hài lòng
-Không hài lòng
+##

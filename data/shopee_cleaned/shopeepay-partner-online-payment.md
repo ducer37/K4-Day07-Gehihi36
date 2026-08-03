@@ -11,15 +11,11 @@ language: "vi"
 
 # Cách thanh toán trực tuyến tại đối tác bằng ShopeePay
 
-[ShopeePay] Cách thanh toán tại trang thanh toán trực tuyến của đối tác | Shopee Trung tâm trợ giúp
-
-# Xin chào, Shopee có thể giúp gì cho bạn?
-
 ## [ShopeePay] Cách thanh toán tại trang thanh toán trực tuyến của đối tác
 
 1. Thao tác trên thiết bị di động
 
-Chọn Ví ShopeePay là phương thức thanh toán tại trang web đơn vị chấp nhận thanh toán trực tuyến mà bạn muốn thực hiện giao dịch. 
+Chọn Ví ShopeePay là phương thức thanh toán tại trang web đơn vị chấp nhận thanh toán trực tuyến mà bạn muốn thực hiện giao dịch.
 
 - Bạn sẽ được chuyển đến cổng thanh toán ShopeePay để hoàn tất thanh toán.
 
@@ -27,17 +23,12 @@ Chọn Ví ShopeePay là phương thức thanh toán tại trang web đơn vị 
 
 2. Thao tác trên máy tính/laptop
 
-Chọn Ví ShopeePay là phương thức thanh toán tại trang web đơn vị chấp nhận thanh toán trực tuyến mà bạn muốn thực hiện giao dịch. 
-Để thực hiện thanh toán, hãy quét mã QR trên trang web của đơn vị chấp nhận thanh toán trực tuyến. Cách quét mã QR trên trang web tương tự 
-cách quét mã QR tại cửa hàng
+Chọn Ví ShopeePay là phương thức thanh toán tại trang web đơn vị chấp nhận thanh toán trực tuyến mà bạn muốn thực hiện giao dịch.
+Để thực hiện thanh toán, hãy quét mã QR trên trang web của đơn vị chấp nhận thanh toán trực tuyến. Cách quét mã QR trên trang web tương tự cách quét mã QR tại cửa hàng
 
-⚠️ 
+⚠️
 Lưu ý:
 
 - Giao dịch sẽ được xử lý ngay lập tức. Nếu thanh toán không thành công, hãy liên hệBộ phận CSKH ShopeePayvà cung cấpcác thông tin cần thiếtđể được hỗ trợ.
 
 - Các đơn vị chấp nhận thanh toán trực tuyến của ShopeePay: Fshare, Garena,..
-
-Bạn có hài lòng với bài viết này?
-Hài lòng
-Không hài lòng

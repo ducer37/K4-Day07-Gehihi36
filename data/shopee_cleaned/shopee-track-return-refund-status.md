@@ -11,10 +11,6 @@ language: "vi"
 
 # Theo dõi tình trạng trả hàng và hoàn tiền trên Shopee
 
-[Trả hàng/ Hoàn tiền] Theo dõi tình trạng Trả hàng/ Hoàn tiền trên Shopee | Shopee Trung tâm trợ giúp
-
-# Xin chào, Shopee có thể giúp gì cho bạn?
-
 ## [Trả hàng/ Hoàn tiền] Theo dõi tình trạng Trả hàng/ Hoàn tiền trên Shopee
 
 ## Tất cả các thông tin/trạng thái xử lý Trả hàng hoàn tiền của bạn sẽ đượcShopeecập nhật và thông báo qua các hình thức:
@@ -33,10 +29,10 @@ Thực hiện theo các bước:
 
 59f35b0dd4054c599db4052bf72ad5ea.mov
 
-1.2. Mục Thông báo trên Ứng dụng Shopee : 
-Vào mục 
+1.2. Mục Thông báo trên Ứng dụng Shopee :
+Vào mục
 Thông báo
-> Tình trạng sẽ được hiển thị ở mục 
+> Tình trạng sẽ được hiển thị ở mục
 Cập nhật Đơn hàng
 2. Ngoài ứng dụng Shopee
 2.1. Biểu ngữ thông báo trên điện thoại
@@ -47,25 +43,19 @@ Cập nhật Đơn hàng
 
 *Cập nhật ngay
 
-Email liên kết với tài khoản Shopee
-đ
-ể theo dõi thông tin.
+Email liên kết với tài khoản Shopee đ ể theo dõi thông tin.
 
 3. Mục Trò Chuyện Với Shopee
 Bước 1
-: Tại trang chủ Shopee, vào mục 
-‘Tôi’ 
+: Tại trang chủ Shopee, vào mục
+‘Tôi’
 Bước 2
-: Chọn 
+: Chọn
 ‘Trò Chuyện Với Shopee’
 Bước 3
-: Chọn 
+: Chọn
 ‘Kiểm tra yêu cầu trả hàng hoàn tiền của tôi’
 Bước 4:
 Chọn đơn hàng cần xem tình trạng xử lý yêu cầu
 Bước 5:
-Chờ Tép Thám Tử trả thông tin
-6acb8b5a700d45f3a6854e81a7f79a1a.mp4
-Bạn có hài lòng với bài viết này?
-Hài lòng
-Không hài lòng
+Chờ Tép Thám Tử trả thông tin 6acb8b5a700d45f3a6854e81a7f79a1a.mp4

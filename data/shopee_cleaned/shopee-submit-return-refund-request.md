@@ -11,10 +11,6 @@ language: "vi"
 
 # Hướng dẫn gửi yêu cầu trả hàng và hoàn tiền
 
-[Trả hàng/ Hoàn tiền] Hướng dẫn gửi yêu cầu Trả hàng/ Hoàn tiền | Shopee Trung tâm trợ giúp
-
-# Xin chào, Shopee có thể giúp gì cho bạn?
-
 ## [Trả hàng/ Hoàn tiền] Hướng dẫn gửi yêu cầu Trả hàng/ Hoàn tiền
 
 ### 1. Hướng dẫn gửi yêu cầu Trả hàng/Hoàn tiền
@@ -66,7 +62,3 @@ Cách 2: Gửi yêu cầu tại mục Trò Chuyện Với Shopee
 | Kết quả xử lý | Shopeesẽ thông báo kết quả qua mụcThông báo > Cập nhật đơn hàngvà/hoặcEmailcủa bạn. |
 | Thời gian hoàn tiền | Nếu yêu cầu được chấp nhận, tiền sẽ được hoàn trong1 - 14 ngày làm việc, tùy thuộc vào phương thức thanh toán. Để tìm hiểu thêm về thời gian hoàn tiền theo từng phương thức, vui lòng truy cập[Trả hàng/Hoàn tiền] Thời gian nhận tiền hoàn và cách kiểm tra tiền hoàn |
 | Trường hợp Trả lại & Hoàn tiền | Bạn cần trả lại sản phẩm bằng cách yêu cầu bưu tá đến lấy hoặc tự ra bưu cục gửi. Sản phẩm sẽ được Người bán/Shopee xem xét khi nhận lại. |
-
-Bạn có hài lòng với bài viết này?
-Hài lòng
-Không hài lòng

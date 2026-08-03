@@ -129,10 +129,68 @@ def fetch(url: str, user_agent: str, timeout: float) -> tuple[str, str]:
 
 
 def extract_content(body: str) -> tuple[str, str]:
-    parser = TextExtractor()
-    parser.feed(body)
-    parser.close()
-    return parser.page_title(), parser.text()
+    try:
+        from bs4 import BeautifulSoup
+        soup = BeautifulSoup(body, "html.parser")
+
+        title_tag = soup.find("title")
+        title = title_tag.get_text(strip=True) if title_tag else ""
+
+        for tag in soup(["script", "style", "nav", "footer", "header", "noscript", "svg", "iframe"]):
+            tag.decompose()
+
+        for table in soup.find_all("table"):
+            rows = table.find_all("tr")
+            if not rows:
+                table.decompose()
+                continue
+
+            table_data = []
+            for r in rows:
+                cells = [re.sub(r"\s+", " ", c.get_text(strip=True)) for c in r.find_all(["td", "th"])]
+                if any(cells):
+                    table_data.append(cells)
+
+            if not table_data:
+                table.decompose()
+                continue
+
+            max_cols = max(len(row) for row in table_data)
+            padded_data = [row + [""] * (max_cols - len(row)) for row in table_data]
+
+            md_lines = []
+            header_row = padded_data[0]
+            md_lines.append("| " + " | ".join(header_row) + " |")
+            md_lines.append("| " + " | ".join(["---"] * max_cols) + " |")
+            for row in padded_data[1:]:
+                md_lines.append("| " + " | ".join(row) + " |")
+
+            table_md = "\n\n" + "\n".join(md_lines) + "\n\n"
+            new_tag = soup.new_tag("p")
+            new_tag.string = table_md
+            table.replace_with(new_tag)
+
+        for i in range(1, 7):
+            for h in soup.find_all(f"h{i}"):
+                h_text = h.get_text(strip=True)
+                h.replace_with(f"\n\n{'#' * i} {h_text}\n\n")
+
+        for li in soup.find_all("li"):
+            li_text = li.get_text(strip=True)
+            li.replace_with(f"\n- {li_text}\n")
+
+        text = soup.get_text(separator="\n")
+        text = text.replace("\xa0", " ").replace("\u200b", "")
+        text = re.sub(r"[ \t]+", " ", text)
+        text = re.sub(r"\n[ \t]+", "\n", text)
+        text = re.sub(r"\n{3,}", "\n\n", text).strip()
+
+        return title, text
+    except ImportError:
+        parser = TextExtractor()
+        parser.feed(body)
+        parser.close()
+        return parser.page_title(), parser.text()
 
 
 def existing_manifest(path: Path) -> dict[str, dict[str, str]]:

@@ -11,23 +11,15 @@ language: "vi"
 
 # Các câu hỏi thường gặp về trả góp
 
-[Trả góp] Các câu hỏi thường gặp | Shopee Trung tâm trợ giúp
-
-# Xin chào, Shopee có thể giúp gì cho bạn?
-
 ## [Trả góp] Các câu hỏi thường gặp
 
 1. Sản phẩm nào tham gia chương trình Trả góp lãi suất 0%?
 
-Các sản phẩm có giá trị từ
-3 triệu đồng trở lên
-và 
-có hiển thị 0% trả góp
-.
+Các sản phẩm có giá trị từ 3 triệu đồng trở lên và có hiển thị 0% trả góp.
 
 2. Làm thế nào để tham gia chương trình Trả góp lãi suất 0%?
 
-Xem ngay các thông tin về 
+Xem ngay các thông tin về
 Trả góp lãi suất 0%
 
 3. Tôi có thể thanh toán một phần số tiền sản phẩm và tham gia trả góp trên số tiền còn lại không?
@@ -56,7 +48,7 @@ Chủ thẻ trả góp 100% giá trị đơn hàng (đã bao gồm phí vận ch
 
 9. Có thể thanh toán số tiền trả góp trước kỳ hạn được không?
 
-Vui lòng liên hệ ngân hàng đã phát hành thẻ tín dụng của bạn để được hỗ trợ thông tin chi tiết. 
+Vui lòng liên hệ ngân hàng đã phát hành thẻ tín dụng của bạn để được hỗ trợ thông tin chi tiết.
 
 10. Tôi có phải chịu thêm khoản phí nào khác khi mua trả góp 0% lãi suất bằng thẻ tín dụng?
 
@@ -64,17 +56,9 @@ Người mua không phải trả thêm bất cứ khoản phí nào khác.
 
 11. Tôi có thể trả góp bằng thẻ tín dụng trong thời gian bao lâu?
 
-Bạn có thể thanh toán Trả góp bằng thẻ tín dụng với các kỳ hạn: 
-3 tháng, 6 tháng, 9 tháng, 12 tháng
-tùy theo từng
+Bạn có thể thanh toán Trả góp bằng thẻ tín dụng với các kỳ hạn:
+3 tháng, 6 tháng, 9 tháng, 12 tháng tùy theo từng
 
-ngân hàng liên kết
-trong chương trình “Trả Góp Lãi Suất 0%”.
+ngân hàng liên kết trong chương trình “Trả Góp Lãi Suất 0%”.
 
-trả góp 
-lãi xuất 0% 
-shopee trả góp
-tra gop
-Bạn có hài lòng với bài viết này?
-Hài lòng
-Không hài lòng
+trả góp lãi xuất 0% shopee trả góp tra gop

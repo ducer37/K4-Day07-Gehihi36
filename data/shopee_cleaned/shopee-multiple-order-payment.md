@@ -11,21 +11,14 @@ language: "vi"
 
 # Hướng dẫn thanh toán nhiều đơn hàng
 
-Hướng Dẫn Thanh Toán Nhiều Đơn Hàng | Shopee Trung tâm trợ giúp
-
-# Xin chào, Shopee có thể giúp gì cho bạn?
-
 ## Hướng Dẫn Thanh Toán Nhiều Đơn Hàng
 
 Người mua có thể thanh toán nhiều đơn hàng cùng một lúc theo hướng dẫn sau:
 
 Bước 1:
-Vào biểu tượng 
-từ màn hình chính của Shopee để vào Giỏ hàng
+Vào biểu tượng từ màn hình chính của Shopee để vào Giỏ hàng
 Bước 2:
-Chọn những sản phẩm cần thanh toán, 
-tối đa 20 phân loại sản phẩm
-cho mỗi lần mua
+Chọn những sản phẩm cần thanh toán, tối đa 20 phân loại sản phẩm cho mỗi lần mua
 
 ﻿
 Người mua có thể chọn danh sách sản phẩm cho mỗi lần thanh toán theo hai cách sau:
@@ -35,22 +28,17 @@ Người mua có thể chọn danh sách sản phẩm cho mỗi lần thanh toá
 - ChọnTất cảđể tiến hành thanh toán cho toàn bộ sản phẩm trong giỏ hàng
 
 Bước 3:
-Vào mục 
+Vào mục
 Shopee Voucher
-> chọn 
-Mã giảm giá 
-có đủ điều kiện > chọn Mua hàng
+> chọn
+Mã giảm giá có đủ điều kiện > chọn Mua hàng
 
 Bước 4:
 Kiểm tra lại thông tin và tiến hành thanh toán
 
 ⚠️
 Lưu ý:
-Tất cả các đơn hàng thanh toán cùng lúc sẽ có 
-CÙNG
-địa chỉ và thông tin lấy hàng cũng như phương thức thanh toán.
-Xem thêm hướng dẫn mua đặt hàng trên ứng dụng Shopee 
+Tất cả các đơn hàng thanh toán cùng lúc sẽ có
+CÙNG địa chỉ và thông tin lấy hàng cũng như phương thức thanh toán.
+Xem thêm hướng dẫn mua đặt hàng trên ứng dụng Shopee
 TẠI ĐÂY
-Bạn có hài lòng với bài viết này?
-Hài lòng
-Không hài lòng

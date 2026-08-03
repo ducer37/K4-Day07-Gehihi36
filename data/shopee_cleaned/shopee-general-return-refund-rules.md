@@ -11,10 +11,6 @@ language: "vi"
 
 # Những quy định chung về trả hàng và hoàn tiền
 
-[Trả hàng/Hoàn tiền] Những quy định chung về Trả hàng/Hoàn tiền của Shopee | Shopee Trung tâm trợ giúp
-
-# Xin chào, Shopee có thể giúp gì cho bạn?
-
 ## [Trả hàng/Hoàn tiền] Những quy định chung về Trả hàng/Hoàn tiền của Shopee
 
 ## 1. Điều kiện Trả hàng/Hoàn tiền của Shopee
@@ -28,19 +24,11 @@ Thời gian để Shopee tiếp nhận yêu cầu Trả hàng/Hoàn tiền từ 
 
 - Đối với đơn hàng do Người bán tự vận chuyển:
 
-+ 
-15 ngày
-kể từ lúc bạn bấm 
-‘Đã nhận được hàng’
-,
-hoặc
-+ 
-20 ngày
-kể từ lúc đơn hàng được cập nhật trạng thái 
-‘Lấy hàng thành công’
-và bạn không bấm
-‘Đã nhận được hàng’
-.
++ 15 ngày kể từ lúc bạn bấm
+‘Đã nhận được hàng’, hoặc
++ 20 ngày kể từ lúc đơn hàng được cập nhật trạng thái
+‘Lấy hàng thành công’ và bạn không bấm
+‘Đã nhận được hàng’.
 
 - Đối với các đơn hàng khác:15 ngàykể từ lúc đơn hàng được cập nhật trạng thái‘Giao hàng thành công’.
 
@@ -93,7 +81,3 @@ Bạn có thể yêu cầu Trả hàng/Hoàn tiền trong các trường hợp s
 - Mã giảm giá được hoàn sẽ có giá trị ưu đãi tương đương với giá trị mã đã sử dụng cho đơn hàng Trả hàng/Hoàn tiền, tuy nhiên thời gian và điều kiện sử dụng mã sẽ được cập nhật theo chương trình khuyến mãi tại từng thời điểm khác nhau
 
 - Shopee Xu sẽ được hoàn lại ngay sau khi khiếu nại hoàn tất và Người mua được chấp nhận yêu cầu hoàn tiền.
-
-Bạn có hài lòng với bài viết này?
-Hài lòng
-Không hài lòng

@@ -11,10 +11,6 @@ language: "vi"
 
 # Lý do không thể thanh toán đơn hàng trên Shopee
 
-[Lỗi] Tại sao tôi không thể thanh toán đơn hàng trên Shopee? | Shopee Trung tâm trợ giúp
-
-# Xin chào, Shopee có thể giúp gì cho bạn?
-
 ## [Lỗi] Tại sao tôi không thể thanh toán đơn hàng trên Shopee?
 
 Trong trường hợp hệ thống báo lỗi và bạn không thể hoàn tất thanh toán cho đơn hàng, vui lòng tham khảo cách xử lý như sau nhé:
@@ -40,11 +36,5 @@ Nếu bạn vẫn chưa tìm được hướng xử lý cho lỗi đang gặp ph
 
 các lý do không thể đặt hàng tại Shopee
 
-hoặc liên hệ 
-Bộ phận CSKH Shopee
-để được hỗ trợ
-.
-
-Bạn có hài lòng với bài viết này?
-Hài lòng
-Không hài lòng
+hoặc liên hệ
+Bộ phận CSKH Shopee để được hỗ trợ.

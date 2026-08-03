@@ -11,10 +11,6 @@ language: "vi"
 
 # Lý do không chọn được phương thức thanh toán mong muốn
 
-[Phương thức thanh toán] Tại sao tôi không chọn được phương thức thanh toán mong muốn? | Shopee Trung tâm trợ giúp
-
-# Xin chào, Shopee có thể giúp gì cho bạn?
-
 ## [Phương thức thanh toán] Tại sao tôi không chọn được phương thức thanh toán mong muốn?
 
 - Bạn không thể chọn được phương thức thanh toán mong muốn, thông thường là do Người bán/sản phẩm chưa hỗ trợ phương thức thanh toán đó
@@ -61,7 +57,7 @@ Một số lý do khác mà bạn không chọn được phương thức thanh t
 
 - Đơn hàng có giá trị thanh toán cuối cùng (gồm phí vận chuyển và các chi phí phát sinh khác)dưới 10.000 VNĐ
 
-5. Ứng dụng ngân hàng 
+5. Ứng dụng ngân hàng
 
 - Hình thức này chỉ áp dụng cho một số Người bán hoặc Ngân hàng có hỗ trợ liên kết.
 
@@ -92,7 +88,3 @@ Một số lý do khác mà bạn không chọn được phương thức thanh t
 - Bạn đang bị giới hạn tạm thời chức năng thanh toán này trong 24 giờ do tài khoản đang sử dụng đã vượt mức giới hạn về số đơn hàng được chọn hình thức thanh toán COD trong ngày hoặc
 
 - Shopee đang tạm thời tắt chức năng Thanh toán khi nhận hàng của bạn do hệ thống ghi nhận bạn có lịch sử nhận hàng thành công đơn COD chưa phù hợp: lý do thường gặp nhất là có từ 3 đơn hàng COD trở lên giao không thành công trong vòng 90 ngày gần nhất.
-
-Bạn có hài lòng với bài viết này?
-Hài lòng
-Không hài lòng

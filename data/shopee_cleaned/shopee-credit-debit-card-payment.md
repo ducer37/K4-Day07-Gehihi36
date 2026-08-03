@@ -11,10 +11,6 @@ language: "vi"
 
 # Cách thanh toán bằng thẻ tín dụng hoặc thẻ ghi nợ
 
-[Thanh toán] Cách thanh toán bằng Thẻ Tín Dụng/Ghi Nợ | Shopee Trung tâm trợ giúp
-
-# Xin chào, Shopee có thể giúp gì cho bạn?
-
 ## [Thanh toán] Cách thanh toán bằng Thẻ Tín Dụng/Ghi Nợ
 
 1. Hướng dẫn thanh toán bằng thẻ tín dụng/ghi nợ
@@ -27,11 +23,8 @@ language: "vi"
 
 - Giá trị thanh toán của đơn hàng chưa đạt tối thiểu:
 
-Phương thức thanh toán thẻ tín dụng/ghi nợ chỉ áp dụng cho đơn hàng có giá trị thanh toán (
-bao gồm phí vận chuyển và các chi phí phát sinh khác
-) từ 
-10.000 đồng trở lên
-. Trong trường hợp bạn không thể thanh toán, vui lòng mua sắm thêm hoặc chọn phương thức khác
+Phương thức thanh toán thẻ tín dụng/ghi nợ chỉ áp dụng cho đơn hàng có giá trị thanh toán ( bao gồm phí vận chuyển và các chi phí phát sinh khác) từ
+10.000 đồng trở lên. Trong trường hợp bạn không thể thanh toán, vui lòng mua sắm thêm hoặc chọn phương thức khác
 
 - Chức năng giới hạn của hệ thống:
 
@@ -48,6 +41,3 @@ bao gồm phí vận chuyển và các chi phí phát sinh khác
 Trong trường hợp đã kiểm tra các điều kiện đều thỏa mà vẫn chưa thanh toán được, bạn có thể thử lại sau.
 Xem thêm:
 Hướng dẫn xóa tài khoản ngân hàng, thẻ tín dụng/ghi nợ trên Shopee
-Bạn có hài lòng với bài viết này?
-Hài lòng
-Không hài lòng
