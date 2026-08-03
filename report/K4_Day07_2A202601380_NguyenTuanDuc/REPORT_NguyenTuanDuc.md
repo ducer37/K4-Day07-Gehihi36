@@ -163,6 +163,7 @@ conda run -n vmec-clinical-copilot python bench.py
 
 **Bao nhiêu câu hỏi trả về chunk có liên quan trong top-3?** 4 / 5 theo evidence chunk-level.  
 **Doc hit@3:** 5 / 5.  
+**Evidence hit@3:** 4 / 5.  
 **Chunk-level score:** 6 / 10.
 
 ### A/B metadata filter
