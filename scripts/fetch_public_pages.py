@@ -86,7 +86,7 @@ def yaml_value(value: str) -> str:
 
 
 def load_rows(path: Path) -> list[dict[str, str]]:
-    with path.open(encoding="utf-8", newline="") as source_file:
+    with path.open(encoding="utf-8-sig", newline="") as source_file:
         reader = csv.DictReader(source_file)
         if not reader.fieldnames or "url" not in reader.fieldnames:
             raise ValueError("Input CSV must have a 'url' column.")
