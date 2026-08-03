@@ -16,6 +16,19 @@ Open:
 http://localhost:8000
 ```
 
+This static mode shows the prepared benchmark story. To make the `Run real bench.py` button execute the real pipeline, use live mode instead:
+
+```powershell
+conda activate vmec-clinical-copilot
+python demo_ui\server.py
+```
+
+Open:
+
+```text
+http://127.0.0.1:8000
+```
+
 ## Run Real Benchmark
 
 ```powershell
@@ -47,6 +60,7 @@ Use the Overview screen first:
 
 - Select a benchmark query in the pipeline console.
 - Click `Run pipeline` to animate Load -> Chunk -> Embed -> Store -> Retrieve -> Evaluate.
+- Click `Run all 5` to show the full fixed benchmark set in one batch.
 - Use `Next step` if you want to explain each stage slowly during the demo.
 - The Retrieve stage opens the matching query detail; the Evaluate stage shows doc/evidence rank, filter, and top-1 result.
 

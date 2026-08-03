@@ -95,6 +95,13 @@ python bench.py`;
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => Array.from(document.querySelectorAll(selector));
+const escapeHtml = (text) => text.replace(/[&<>"']/g, (char) => ({
+  "&": "&amp;",
+  "<": "&lt;",
+  ">": "&gt;",
+  '"': "&quot;",
+  "'": "&#039;"
+}[char]));
 const pipelineMessages = [
   "Loaded 10 cleaned Shopee policy documents with provenance metadata.",
   "Chunked with HeadingAwareChunker(700): 392 chunks, headings preserved.",
@@ -105,6 +112,39 @@ const pipelineMessages = [
 ];
 let pipelineStep = -1;
 let pipelineTimer = null;
+
+function scoreMeaning(item) {
+  if (item.score === "2/2") return "Top-3 has the answer evidence and the answer is grounded.";
+  if (item.score === "1/2") return "Relevant evidence appears, but not at rank 1 or context is incomplete.";
+  return "Top-3 misses the answer evidence, even if the document is related.";
+}
+
+function rowJudgement(item, row) {
+  if (item.evidenceRank === row[0]) return ["relevant", "Answer evidence"];
+  if (row[2] === item.rows[0][2] && item.evidenceRank !== "None") return ["partial", "Related context"];
+  if (item.evidenceRank === "None") return ["miss", "Missing evidence"];
+  return ["partial", "Supporting context"];
+}
+
+function renderChunkCards(item, limit = 3) {
+  return item.rows.slice(0, limit).map((row) => {
+    const [tone, label] = rowJudgement(item, row);
+    return `
+      <article class="chunk-card ${tone}">
+        <div class="chunk-head">
+          <b>#${row[0]}</b>
+          <code>${row[2]} / ${row[3]}</code>
+          <span>${row[1]}</span>
+        </div>
+        <p>${row[4]}</p>
+        <div class="chunk-eval">
+          <span>${label}</span>
+          <small>${tone === "relevant" ? "Use this as citation context." : "Useful for ranking analysis, not enough alone."}</small>
+        </div>
+      </article>
+    `;
+  }).join("");
+}
 
 function renderTabs() {
   $("#queryTabs").innerHTML = benchmark.map((item, index) => `
@@ -125,6 +165,13 @@ function renderQuery(item) {
   $("#queryGold").textContent = item.gold;
   $("#docRank").textContent = item.docRank;
   $("#evidenceRank").textContent = item.evidenceRank;
+  $("#chunkCards").innerHTML = `
+    <div class="score-guide">
+      <b>How to read this result</b>
+      <span>${scoreMeaning(item)}</span>
+    </div>
+    ${renderChunkCards(item)}
+  `;
   $("#retrievalRows").innerHTML = `
     <div class="row head"><span>Rank</span><span>Score</span><span>Document</span><span>Chunk</span><span>Evidence note</span></div>
     ${item.rows.map((row) => `
@@ -166,6 +213,10 @@ function renderPipelineResult(item) {
       <div><b>Filter</b><code>${item.filter}</code></div>
       <div><b>Top-1</b><code>${item.rows[0][2]} / ${item.rows[0][3]}</code></div>
     </div>
+    <div class="pipeline-chunks">
+      <b>Retrieved chunks</b>
+      ${renderChunkCards(item)}
+    </div>
   `;
 }
 
@@ -192,8 +243,100 @@ function runPipeline() {
   tick();
 }
 
+function runAllQueries() {
+  resetPipeline();
+  pipelineStep = 5;
+  $$(".pipeline-stage").forEach((stage) => stage.classList.add("done"));
+  $("#pipelineLog").innerHTML = pipelineMessages.map((message, index) =>
+    `<p><span>${String(index + 1).padStart(2, "0")}</span> ${message}</p>`
+  ).join("") + benchmark.map((item) =>
+    `<p><span>${item.id}</span> score ${item.score}; doc rank ${item.docRank}; evidence rank ${item.evidenceRank}</p>`
+  ).join("");
+  $("#pipelineResult").innerHTML = `
+    <div class="result-card ok">
+      <span>Batch benchmark</span>
+      <strong>5/5</strong>
+      <p>All fixed benchmark queries were tested with the same strategy, embedder, and Chroma store.</p>
+    </div>
+    <div class="batch-summary">
+      ${benchmark.map((item) => `
+        <button type="button" data-batch-id="${item.id}">
+          <b>${item.id}</b>
+          <span>${item.score}</span>
+          <small>doc ${item.docRank} / evidence ${item.evidenceRank}</small>
+        </button>
+      `).join("")}
+    </div>
+  `;
+  renderQuery(benchmark[0]);
+  location.hash = "#benchmark";
+}
+
 function copyCommand() {
   navigator.clipboard?.writeText(fullCommand).then(() => showToast("Đã copy lệnh chạy benchmark"));
+}
+
+async function runRealBenchmark() {
+  const output = $("#realBenchmarkOutput");
+  output.textContent = "Running bench.py with EMBEDDING_PROVIDER=local and VECTOR_STORE=chroma...\nThis may take a little while on the first run.";
+  try {
+    const response = await fetch("/api/benchmark", { method: "POST" });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const result = await response.json();
+    const summary = result.summary || {};
+    const summaryText = Object.keys(summary).length ? [
+      "[live summary]",
+      `Python: ${result.python}`,
+      `Embedding: ${summary.Embedding || "unknown"}`,
+      `Vector store: ${summary["Vector store"] || "unknown"}`,
+      `Chroma dir: ${summary["Chroma dir"] || "unknown"}`,
+      `Chunks loaded: ${summary["Chunks loaded"] || "unknown"}`,
+      `Doc hit@3: ${summary["Doc hit@3"] || "unknown"}`,
+      `Evidence hit@3: ${summary["Evidence hit@3"] || "unknown"}`,
+      `Chunk-level score: ${summary["Chunk-level score"] || "unknown"}`,
+      ""
+    ].join("\n") : "";
+    const text = [
+      summaryText,
+      result.output || "",
+      result.error ? `\n[stderr]\n${result.error}` : "",
+      result.ok ? "\n[done] benchmark completed" : `\n[failed] return code ${result.returncode ?? "unknown"}`
+    ].join("");
+    output.innerHTML = escapeHtml(text.trim());
+    showToast(result.ok ? "Benchmark thật đã chạy xong" : "Benchmark thật bị lỗi, xem output");
+  } catch (error) {
+    output.textContent = `Cannot call /api/benchmark.\nStart the live demo server instead:\npython demo_ui\\server.py\n\n${error}`;
+    showToast("Cần chạy demo_ui/server.py");
+  }
+}
+
+async function runStrategySweep() {
+  const table = $("#strategyCompare");
+  table.innerHTML = '<div class="row head"><span>Strategy</span><span>Chunks</span><span>Doc hit@3</span><span>Evidence hit@3</span><span>Chunk score</span></div><div class="row muted-row"><span>Running sweep... this can take several minutes.</span></div>';
+  try {
+    const response = await fetch("/api/strategy-sweep", { method: "POST" });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const result = await response.json();
+    table.innerHTML = `
+      <div class="row head"><span>Strategy</span><span>Chunks</span><span>Doc hit@3</span><span>Evidence hit@3</span><span>Chunk score</span></div>
+      ${result.runs.map((run) => {
+        const summary = run.summary || {};
+        return `
+          <div class="row ${run.ok ? "" : "bad-row"}">
+            <span>${run.strategy}</span>
+            <span>${summary["Chunks loaded"] || "-"}</span>
+            <span>${summary["Doc hit@3"] || "-"}</span>
+            <span>${summary["Evidence hit@3"] || "-"}</span>
+            <span>${summary["Chunk-level score"] || "failed"}</span>
+          </div>
+        `;
+      }).join("")}
+    `;
+    showToast(result.ok ? "Strategy sweep đã chạy xong" : "Sweep dừng vì có lỗi");
+  } catch (error) {
+    table.innerHTML = `<div class="row muted-row"><span>Cannot call /api/strategy-sweep. Run live server: python demo_ui\\server.py. ${escapeHtml(String(error))}</span></div>`;
+    showToast("Cần chạy demo_ui/server.py");
+  }
 }
 
 function showToast(text) {
@@ -226,8 +369,17 @@ function init() {
   });
   $$("[data-copy-command]").forEach((button) => button.addEventListener("click", copyCommand));
   $("#runPipeline").addEventListener("click", runPipeline);
+  $("#runAllQueries").addEventListener("click", runAllQueries);
+  $("#runRealBenchmark").addEventListener("click", runRealBenchmark);
+  $("#runStrategySweep").addEventListener("click", runStrategySweep);
   $("#nextPipeline").addEventListener("click", advancePipeline);
   $("#resetPipeline").addEventListener("click", resetPipeline);
+  $("#pipelineResult").addEventListener("click", (event) => {
+    const button = event.target.closest("[data-batch-id]");
+    if (!button) return;
+    renderQuery(benchmark.find((item) => item.id === button.dataset.batchId));
+    location.hash = "#benchmark";
+  });
   $("#pipelineScenario").addEventListener("change", () => renderQuery(selectedScenario()));
   setupNav();
 }
